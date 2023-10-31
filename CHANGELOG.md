@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.2] - 2023-10-31
+### Added
+
+* .env
+* cookies_snapshot
+
+### Modified
+
+* auto_changelog.ipynb
+	+ Added imports for `os` and `dotenv`
+	+ Replaced hardcoded email and password with environment variables `EMAIL` and `PASSW`
+	+ Saved cookies to the local directory instead of logging them to the console
+* .gitignore
+	+ Ignored the `.env` and `cookies_snapshot` directories
+
 ## [0.0.1] - 2023-10-31
 ### Added
 - Initial release
