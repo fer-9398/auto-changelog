@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.0.2] - 2023-10-31
+## [0.0.2] - 2023-11-01
 ### Added
 
 * .env
@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 	+ Saved cookies to the local directory instead of logging them to the console
 * .gitignore
 	+ Ignored the `.env` and `cookies_snapshot` directories
+
 
 ## [0.0.1] - 2023-10-31
 ### Added
