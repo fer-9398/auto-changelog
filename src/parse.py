@@ -3,7 +3,9 @@ import re
 
 
 def parse(text: str, dir: str = None):
-    """TO-DO: Description
+    """
+    Description:
+        Parse the text from huggingface chatbot and save it to CHANGELOG.md
 
     Arguments:
         text (str): Information to save in CHANGELOG.
@@ -15,7 +17,7 @@ def parse(text: str, dir: str = None):
     else:
         changelog_file = "CHANGELOG.md"
 
-    with open(changelog_file, "r") as file:
+    with open(changelog_file) as file:
         changelog = file.read()
     pattern = r"\[\d+\.\d+\.\d+\]"
     latest = 0

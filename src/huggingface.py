@@ -18,7 +18,9 @@ sign.saveCookiesToDir(cookie_path_dir)
 
 
 def changelog_hugging(dir: str = None):
-    """TO-DO: Description
+    """
+    Description:
+        Generate a detailed changelog for the following diff output.
 
     Arguments:
         dir(str): Git repository directory. By default, current directory.
@@ -26,24 +28,28 @@ def changelog_hugging(dir: str = None):
     Return:
         str: ...
     """
-    command = "git diff HEAD~2 HEAD~1"
+    try:
+        command = "git diff HEAD~2 HEAD~1"
 
-    process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, cwd=dir)
-    output, _ = process.communicate()
+        process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, cwd=dir)
+        output, _ = process.communicate()
 
-    var = output.decode()
-    pretext = "I want you to generate a detailed changelog for the following git diff output I'll provide you with, the format must the Keep a Changelog format : "
+        var = output.decode()
+        pretext = "I want you to generate a detailed changelog for the following git diff output I'll provide you with, the format must the Keep a Changelog format : "
 
-    chatbot = hugchat.ChatBot(
-        cookies=cookies.get_dict()
-    )  # or cookie_path="usercookies/<email>.json"
-    query_result = chatbot.query(pretext + var, stream=False)
-    text = query_result.text
-    lines = text.split("\n")
+        chatbot = hugchat.ChatBot(
+            cookies=cookies.get_dict()
+        )  # or cookie_path="usercookies/<email>.json"
+        query_result = chatbot.query(pretext + var, stream=False)
+        text = query_result.text
+        lines = text.split("\n")
 
-    if len(lines) >= 2:
-        lines = lines[1:-1]
+        if len(lines) >= 2:
+            lines = lines[1:-1]
 
-    modified_text = "\n".join(lines)
+        modified_text = "\n".join(lines)
 
-    return modified_text
+        return modified_text
+
+    except Exception as e:
+        print(e)
