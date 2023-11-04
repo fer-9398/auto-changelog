@@ -3,6 +3,7 @@
 ## Description
 
 This project Generates automatically a changelog from git metadata. It follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format.
+It is preferred to tag a commit with a version number with the following command `git tag -a [X.X.X] -m "Version X.X.X"`, but if not, the program autogenerate a minor version.
 
 ## Run
 

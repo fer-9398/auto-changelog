@@ -29,13 +29,28 @@ def changelog_hugging(dir: str = None):
         str: ...
     """
     try:
-        command = "git diff HEAD~2 HEAD~1"
+        command = ["git", "diff", "HEAD~2", "HEAD~1"]
 
         process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, cwd=dir)
         output, _ = process.communicate()
 
         var = output.decode()
-        pretext = "I want you to generate a detailed changelog for the following git diff output I'll provide you with, the format must the Keep a Changelog format : "
+        pretext = """### Added
+
+        * .env
+        * cookies_snapshot
+
+        ### Modified
+
+        * auto_changelog.ipynb
+        + Added imports for os and dotenv
+        + Replaced hardcoded email and password with environment variables EMAIL and PASSW
+        + Saved cookies to the local directory instead of logging them to the console
+        * .gitignore
+        + Ignored the .env and cookies_snapshot directories
+
+        Now it's your turn to write a changelog for the following diff:
+        """
 
         chatbot = hugchat.ChatBot(
             cookies=cookies.get_dict()
@@ -44,12 +59,20 @@ def changelog_hugging(dir: str = None):
         text = query_result.text
         lines = text.split("\n")
 
-        if len(lines) >= 2:
-            lines = lines[1:-1]
+        # if any line contains a special character, keep it otherwise remove it
+        for i in range(len(lines)):
+            if any(char in lines[i] for char in ["+", "-", "*", "!", "#", "=", "", None]):
+                pass
+            else:
+                lines[i] = None
 
         modified_text = "\n".join(lines)
-
+        
+        if modified_text == None:
+            raise Exception("No changelog generated due to some error")
+        else:
+            pass
         return modified_text
 
     except Exception as e:
-        print(e)
+        raise Exception(e)
